@@ -419,6 +419,10 @@ def fillme64(data):
         for i in  d:
             print data[i:i+len(name)]
             mlist=list(data)
+#I examined the level file in vi, in all cases, when the character after the string was a ^A the string was complete. I suspect this is the termination character. without this guard condition, we would match
+#"minecraft:diamond",
+#matches minecraft:diamond_axe
+#on all of these and would truncate the NBT and make it corrupt.
             if  mlist[i+len(name)]=='':
                 mlist[i+len(name)+magic_offset]=magic_value
             data="".join(mlist)
