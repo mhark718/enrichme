@@ -1,3 +1,6 @@
+
+
+import gzip
 import os,re
 names=[
 "minecraft:acacia_boat",
@@ -428,8 +431,10 @@ def fillme64(data):
             data="".join(mlist)
     return data
       
-with open("level2.txt","rb")as f:
-    data=f.read()
-data=fillme64(data)  
-with open("levelr.txt","wb") as g:
-    g.write(data)
+with gzip.open('level.dat', 'rb') as f:
+    file_content = f.read()
+
+file_content =fillme64(file_content )  
+
+with gzip.open('level.dat', 'wb') as f:
+    f.write(file_content)
