@@ -1,3 +1,6 @@
+
+
+import gzip
 import os,re
 names=[
 "minecraft:acacia_boat",
@@ -419,17 +422,15 @@ def fillme64(data):
         for i in  d:
             print data[i:i+len(name)]
             mlist=list(data)
-#I examined the level file in vi, in all cases, when the character after the string was a ^A the string was complete. I suspect this is the termination character. without this guard condition, we would match
-#"minecraft:diamond",
-#matches minecraft:diamond_axe
-#on all of these and would truncate the NBT and make it corrupt.
             if  mlist[i+len(name)]=='':
                 mlist[i+len(name)+magic_offset]=magic_value
             data="".join(mlist)
     return data
       
-with open("level2.txt","rb")as f:
-    data=f.read()
-data=fillme64(data)  
-with open("levelr.txt","wb") as g:
-    g.write(data)
+with gzip.open('level.dat', 'rb') as f:
+    file_content = f.read()
+
+file_content =fillme64(file_content )  
+
+with gzip.open('level.dat', 'wb') as f:
+    f.write(file_content)
