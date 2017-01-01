@@ -411,11 +411,12 @@ names=[
        ]
 magic_offset=8
 magic_value='@'
-
+delimiter=chr(1) #control-A
 def fillme64(data):
     global magic_offset
     global magic_value
     global names
+    global delimiter
     m=list()
     for name in names:
         d= [m.start() for m in re.finditer(name,data)]
@@ -426,7 +427,7 @@ def fillme64(data):
 #"minecraft:diamond",
 #matches minecraft:diamond_axe
 #on all of these and would truncate the NBT and make it corrupt.
-            if  mlist[i+len(name)]=='':
+            if  mlist[i+len(name)]==delimiter:
                 mlist[i+len(name)+magic_offset]=magic_value
             data="".join(mlist)
     return data
