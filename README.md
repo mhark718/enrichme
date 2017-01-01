@@ -1,2 +1,2 @@
 # enrichme
-a python script with a unix wrapper increases inventory items to 64
+a python script using the gzip library increases inventory items to 64
